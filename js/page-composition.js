@@ -1,5 +1,4 @@
 const aside = document.querySelector("aside");
-const players_template = document.querySelector("#players_template");
 
 //field consts -_-
 const gb_num = document.querySelector("#gb_num");
