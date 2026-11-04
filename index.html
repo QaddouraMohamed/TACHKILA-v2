@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TACHKILA</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <script type="module" src="./js/script.js" defer></script>
+</head>
+
+<body class="bg-slate-800">
+
+    <header class="flex justify-between items-center p-4 bg-slate-800 border-b-1 border-amber-500">
+        <div class="flex items-center gap-3">
+            <img src="./assets/icons/Microsoft-Fluentui-Emoji-3d-Soccer-Ball-3d.svg" alt="TACHKILA"
+                class="size-4 outline-7 rounded-4xl outline-emerald-800 ring-1 ring-green-400">
+            <h1 class="text-white font-bold">TACHKILA</h1>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-slate-700 border-1 rounded-xl gap-5 text-white">
+            <a href="../index.html">Effectif</a>
+            <a href="./composition.html" class="bg-emerald-800 rounded-md p-2">Composition</a>
+            <a href="./matchs.html">Matchs</a>
+        </div>
+        <ul class="flex gap-8 list-disc">
+            <li class="text-amber-400">GB</li>
+            <li class="text-sky-500">DEF</li>
+            <li class="text-green-500">MIL</li>
+            <li class="text-red-500">ATT</li>
+        </ul>
+    </header>
+
+    <main class="flex h-[88vh]">
+        <aside class="flex flex-col items-center p-3 bg-slate-800 w-1/4 border-r-1 border-amber-500 overflow-y-auto">
+            <input type="button" value="+ Ajouter un joueur" name="plan" id="ajouter_btn"
+                class="text-white bg-green-700 p-2 rounded-lg w-[97%] mb-6">
+            <div class="flex justify-between items-center w-[97%] mb-5">
+                <p class="text-white font-bold text-sm">Effectif</p>
+                <input type="button" value="1 joueur(s)" class="text-white bg-slate-950 p-1 rounded-md text-sm"
+                    id="players_num">
+            </div>
+            <p class="text-gray-400 text-sm mb-4">Cliquez sur un joueur place pour voir sa case sur le terrain. pour
+                modifier, pour supprimer.
+            </p>
+
+            <template id="players_template">
+                <div class="flex flex-col p-5 w-[97%] border border-l-5 border-amber-500 rounded-lg player text-white">
+                    <div class="flex justify-between items-center ">
+                        <div class="flex items-center gap-3 ">
+                            <p class="text-amber-500 player_num">11</p>
+                            <div>
+                                <p class="text-white font-bold player_name">joueur</p>
+                                <p class="text-amber-500 player_post">Post</p>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="modifier_btn">🖊️</button>
+                            <button class="supprimer_btn">🗑️</button>
+                        </div>
+                    </div>
+
+                    <select name="posts" class="posts bg-slate-800">
+                        <option value="">Sur le banc</option>
+                    </select>
+                </div>
+            </template>
+
+        </aside>
+
+        <section class="flex justify-center items-center bg-slate-950 w-3/4">
+            <div class="grid_container p-3 w-[90%] border-1 border-amber-500 rounded-lg">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_dgd">
+                    <p id="dg_num">N</p>
+                    <div>
+                        <p id="dg_position">DG</p>
+                        <p id="dg_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_mgd">
+                    <p id="mg_num">N</p>
+                    <div>
+                        <p id="mg_position">MG</p>
+                        <p id="mg_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_bu">
+                    <p id="bu1_num">N</p>
+                    <div>
+                        <p id="bu1_position">BU 1</p>
+                        <p id="bu1_player">Player</p>
+                    </div>
+                </span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-slate-900 border-2 border-white rounded-lg text-white span_gb">
+                    <p id="gb_num">N</p>
+                    <div>
+                        <p id="gb_position">GB</p>
+                        <p id="gb_player">Player</p>
+                    </div>
+                </span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_dc">
+                    <p id="dc1_num">N</p>
+                    <div>
+                        <p id="dc1_position">DC 1</p>
+                        <p id="dc1_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_mc">
+                    <p id="mc1_num">N</p>
+                    <div>
+                        <p id="mc1_position">MC 1</p>
+                        <p id="mc1_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_dc">
+                    <p id="dc2_num">N</p>
+                    <div>
+                        <p id="dc2_position">DC 2</p>
+                        <p id="dc2_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_mc">
+                    <p id="mc2_num">N</p>
+                    <div>
+                        <p id="mc2_position">MC 2</p>
+                        <p id="mc2_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_bu">
+                    <p id="bu2_num">N</p>
+                    <div>
+                        <p id="bu2_position">BU 2</p>
+                        <p id="bu2_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_dgd">
+                    <p id="dd_num">N</p>
+                    <div>
+                        <p id="dd_position">DD</p>
+                        <p id="dd_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span
+                    class="flex justify-center items-center gap-3 bg-blue-600 border-2 border-red-600 rounded-lg text-white span_mgd">
+                    <p id="md_num">N</p>
+                    <div>
+                        <p id="md_position">MD</p>
+                        <p id="md_player">Player</p>
+                    </div>
+                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </section>
+    </main>
+
+    <section id="ajouter"
+        class="flex justify-center items-center backdrop-blur-md w-full h-full absolute top-0 text-white hidden">
+        <form id="form_ajouter"
+            class="flex flex-col justify-between p-4 bg-slate-950 border-1 border-amber-500 rounded-lg  w-[30%] h-[80%]">
+            <div class="flex justify-between items-center w-[100%]">
+                <h2 class="font-bold">Ajouter un joueur</h2>
+                <button type="button" class="quit_add" aria-label="Fermer">X</button>
+            </div>
+
+            <div class="flex flex-col items-start">
+                <label for="nom_ajouter">Nom complet</label>
+                <input type="text" name="name" id="nom_ajouter" placeholder="Ex. Messi"
+                    class="bg-slate-800 w-[90%] rounded-md" required>
+            </div>
+            <div>
+                <p>Poste</p>
+                <div class="grid grid-cols-2 grid-rows-2 gap-4">
+                    <span>
+                        <input type="radio" name="position" id="gardien_ajouter" value="Gardien" required>
+                        <label for="gardien_ajouter">Gardien</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="position" id="defenseur_ajouter" value="Defenseur">
+                        <label for="defenseur_ajouter">Defenseur</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="position" id="milieu_ajouter" value="Milieu">
+                        <label for="milieu_ajouter">Milieu</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="position" id="attaquant_ajouter" value="Attaquant">
+                        <label for="attaquant_ajouter">Attaquant</label>
+                    </span>
+                </div>
+
+            </div>
+            <div class="flex flex-col items-start">
+                <label for="number_ajouter">Numero(1 a 99)</label>
+                <input type="number" min="1" max="99" placeholder="Ex. 10" name="number" id="number_ajouter"
+                    class="bg-slate-800 w-[90%] rounded-md" required>
+                <p id="num_taken_add" class="text-red-500 hidden">Ce numéro de maillot est déjà pris par un joueur !!
+                </p>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" class="bg-slate-800 rounded-md p-2 quit_add">Annuler</button>
+                <button type="submit" id="ajouter_submit" class="bg-green-700 rounded-md p-2">Ajouter</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="modifier"
+        class="flex justify-center items-center backdrop-blur-md w-full h-full absolute top-0 text-white hidden">
+        <form id="form_modifier"
+            class="flex flex-col justify-between p-4 bg-slate-950 border-1 border-amber-500 rounded-lg  w-[30%] h-[80%]">
+            <div class="flex justify-between items-center w-[100%]">
+                <h2 class="font-bold">Modifier le joueur</h2>
+                <button type="button" class="quit_modify" aria-label="Fermer">X</button>
+            </div>
+
+            <div class="flex flex-col items-start">
+                <label for="nom_modifier">Nom complet</label>
+                <input type="text" name="name" id="nom_modifier" placeholder="Ex. Messi"
+                    class="bg-slate-800 w-[90%] rounded-md" required>
+            </div>
+            <div>
+                <p>Poste</p>
+                <div class="grid grid-cols-2 grid-rows-2 gap-4">
+                    <span>
+                        <input type="radio" name="position" id="gardien_modifier" value="Gardien" required>
+                        <label for="gardien_modifier">Gardien</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="position" id="defenseur_modifier" value="Defenseur">
+                        <label for="defenseur_modifier">Defenseur</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="position" id="milieu_modifier" value="Milieu">
+                        <label for="milieu_modifier">Milieu</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="position" id="attaquant_modifier" value="Attaquant">
+                        <label for="attaquant_modifier">Attaquant</label>
+                    </span>
+                </div>
+
+            </div>
+            <div class="flex flex-col items-start">
+                <label for="number_modifier">Numero(1 a 99)</label>
+                <input type="number" min="1" max="99" placeholder="Ex. 10" name="number" id="number_modifier"
+                    class="bg-slate-800 w-[90%] rounded-md" required>
+                <p id="num_taken_modify" class="text-red-500 hidden">Ce numéro de maillot est déjà pris par un joueur !!
+                </p>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" class="bg-slate-800 rounded-md p-2 quit_modify">Annuler</button>
+                <button type="submit" id="modifier_submit" class="bg-green-700 rounded-md p-2">Modifier</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="supprimer"
+        class="flex justify-center items-center backdrop-blur-md w-full h-full absolute top-0 text-white hidden">
+        <form id="form_supprimer"
+            class="flex flex-col justify-between p-4 bg-slate-950 border-1 border-amber-500 rounded-lg  w-[30%] h-[60%]">
+            <div class="flex justify-between items-center w-[100%]">
+                <h2 class="font-bold">Supprimer un joueur</h2>
+                <button type="button" class="quit_supprimer" aria-label="Fermer">X</button>
+            </div>
+            <div class="flex flex-col items-start">
+                <h3 class="font-bold">Êtes-vous sûr de vouloir supprimer ce joueur ?</h3>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" class="bg-slate-800 rounded-md p-2 quit_supprimer">Annuler</button>
+                <button type="submit" id="supprimer_submit" class="bg-red-500 rounded-md p-2">Supprimer</button>
+            </div>
+        </form>
+    </section>
+
+    <p id="place_occupe_err" class="absolute right-0 bottom-0 text-white bg-red-600 rounded-md p-2 mb-2 mr-2 hidden">Ce
+        poste sur
+        le terrain
+        est déjà
+        occupé par un joueur !!</p>
+</body>
+
+</html>
