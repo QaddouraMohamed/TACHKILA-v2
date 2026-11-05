@@ -43,11 +43,6 @@ team.forEach((player) => {
   add_players_to_main(player);
 });
 
-ajouter_btn.addEventListener("click", toggle_add);
-quit_add.forEach((btn) => {
-  btn.addEventListener("click", toggle_add);
-});
-
 form_ajouter.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(form_ajouter));
@@ -83,6 +78,12 @@ form_ajouter.addEventListener("submit", (event) => {
   }
 });
 
+ajouter_btn.addEventListener("click", toggle_add);
+quit_add.forEach((btn) => {
+  btn.addEventListener("click", toggle_add);
+});
+
+
 players_container.addEventListener("click", (event) => {
   if (event.target.closest(".modifier_btn")) {
     player_to = event.target.closest(".player");
@@ -93,6 +94,8 @@ players_container.addEventListener("click", (event) => {
         form_modifier.elements.name.value = team[i].name;
         form_modifier.elements.position.value = team[i].position;
         form_modifier.elements.number.value = team[i].number;
+        form_modifier.elements.age.value = team[i].age;
+        form_modifier.elements.statut.value = team[i].statut;
         break;
       }
     }
@@ -105,56 +108,6 @@ players_container.addEventListener("click", (event) => {
   }
 });
 
-// aside.addEventListener("change", (event) => {
-//   if (event.target.closest(".posts")) {
-//     player_to = event.target.closest(".player");
-//     player_id = Number(player_to.dataset.id);
-//     player_position = event.target.closest(".posts").value;
-//     for (let i = 0; i < team.length; i++) {
-//       if (player_id === team[i].id) {
-//         clean_field(team[i]);
-//         switch (player_position) {
-//           case "GB":
-//             add_to_field(player_position, gb_num, gb_player, team[i]);
-//             break;
-//           case "DG":
-//             add_to_field(player_position, dg_num, dg_player, team[i]);
-//             break;
-//           case "DC_1":
-//             add_to_field(player_position, dc1_num, dc1_player, team[i]);
-//             break;
-//           case "DC_2":
-//             add_to_field(player_position, dc2_num, dc2_player, team[i]);
-//             break;
-//           case "DD":
-//             add_to_field(player_position, dd_num, dd_player, team[i]);
-//             break;
-//           case "MG":
-//             add_to_field(player_position, mg_num, mg_player, team[i]);
-//             break;
-//           case "MC_1":
-//             add_to_field(player_position, mc1_num, mc1_player, team[i]);
-//             break;
-//           case "MC_2":
-//             add_to_field(player_position, mc2_num, mc2_player, team[i]);
-//             break;
-//           case "MD":
-//             add_to_field(player_position, md_num, md_player, team[i]);
-//             break;
-//           case "BU_1":
-//             add_to_field(player_position, bu1_num, bu1_player, team[i]);
-//             break;
-//           case "BU_2":
-//             add_to_field(player_position, bu2_num, bu2_player, team[i]);
-//             break;
-//           default:
-//             break;
-//         }
-//       }
-//     }
-//   }
-// });
-
 form_modifier.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(form_modifier));
@@ -162,7 +115,6 @@ form_modifier.addEventListener("submit", (event) => {
   for (const player of team) {
     if (Number(data.number) === player.number && player.id !== player_id) {
       found = true;
-      console.log(1);
       break;
     }
   }
@@ -175,6 +127,8 @@ form_modifier.addEventListener("submit", (event) => {
         team[i].name = data.name;
         team[i].position = data.position;
         team[i].number = Number(data.number);
+        team[i].age = Number(data.age);
+        team[i].statut = data.statut;
         //localStorage.setItem("team", JSON.stringify(team));
         if (team[i].right_now != "") {
           clean_field(team[i]);
@@ -185,9 +139,7 @@ form_modifier.addEventListener("submit", (event) => {
     players_container
       .querySelectorAll(".player")
       .forEach((player) => player.remove());
-    team.forEach((player) => {
-      add_to_aside(player);
-    });
+    team.forEach((player) => add_players_to_main(player));
     player_id = 0;
     close_modify();
   }

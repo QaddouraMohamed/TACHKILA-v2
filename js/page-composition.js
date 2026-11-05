@@ -86,3 +86,53 @@ for (let player of team) {
     }
   }
 }
+
+aside.addEventListener("change", (event) => {
+  if (event.target.closest(".posts")) {
+    player_to = event.target.closest(".player");
+    player_id = Number(player_to.dataset.id);
+    player_position = event.target.closest(".posts").value;
+    for (let i = 0; i < team.length; i++) {
+      if (player_id === team[i].id) {
+        clean_field(team[i]);
+        switch (player_position) {
+          case "GB":
+            add_to_field(player_position, gb_num, gb_player, team[i]);
+            break;
+          case "DG":
+            add_to_field(player_position, dg_num, dg_player, team[i]);
+            break;
+          case "DC_1":
+            add_to_field(player_position, dc1_num, dc1_player, team[i]);
+            break;
+          case "DC_2":
+            add_to_field(player_position, dc2_num, dc2_player, team[i]);
+            break;
+          case "DD":
+            add_to_field(player_position, dd_num, dd_player, team[i]);
+            break;
+          case "MG":
+            add_to_field(player_position, mg_num, mg_player, team[i]);
+            break;
+          case "MC_1":
+            add_to_field(player_position, mc1_num, mc1_player, team[i]);
+            break;
+          case "MC_2":
+            add_to_field(player_position, mc2_num, mc2_player, team[i]);
+            break;
+          case "MD":
+            add_to_field(player_position, md_num, md_player, team[i]);
+            break;
+          case "BU_1":
+            add_to_field(player_position, bu1_num, bu1_player, team[i]);
+            break;
+          case "BU_2":
+            add_to_field(player_position, bu2_num, bu2_player, team[i]);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+});
