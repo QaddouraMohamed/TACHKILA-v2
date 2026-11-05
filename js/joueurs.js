@@ -1,5 +1,5 @@
-export function players_num() {
-  document.querySelector("#players_num").value = `${team.length} joueur(s)`;
+export function players_num(team) {
+  document.querySelector("#players_num").textContent = team.length;
 }
 
 export function add_players_to_main(player) {
@@ -7,7 +7,7 @@ export function add_players_to_main(player) {
     .querySelector("#players_template")
     .content.cloneNode(true);
   clone.querySelector(".player").dataset.id = player.id;
-  clone.querySelector(".player_num").textContent = Number(player.numero);
+  clone.querySelector(".player_num").textContent = Number(player.number);
   clone.querySelector(".player_name").textContent = player.name;
   clone.querySelector(".player_post").textContent = player.position;
   clone.querySelector(".player_age").textContent = `Age : ${player.age} ans`;
@@ -43,8 +43,8 @@ export function add_players_to_main(player) {
 }
 
 export function toggle_add() {
-  form_ajouter.reset();
-  ajouter.classList.toggle("hidden");
+  document.querySelector("#form_ajouter").reset();
+  document.querySelector("#ajouter").classList.toggle("hidden");
 }
 
 export function open_modify() {
