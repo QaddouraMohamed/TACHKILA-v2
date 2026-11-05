@@ -1,6 +1,6 @@
 export const team = [
   {
-    id: "0",
+    id: 0,
     name: "Omar Benali",
     number: 1,
     age: 31,
@@ -10,7 +10,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "1",
+    id: 1,
     name: "Hamza Idrissi",
     number: 2,
     age: 27,
@@ -20,7 +20,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "2",
+    id: 2,
     name: "Mehdi Alaoui",
     number: 4,
     age: 29,
@@ -30,7 +30,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "3",
+    id: 3,
     name: "Soufiane Tazi",
     number: 5,
     age: 30,
@@ -40,7 +40,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "4",
+    id: 4,
     name: "Adil Fassi",
     number: 3,
     age: 24,
@@ -50,7 +50,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "5",
+    id: 5,
     name: "Rachid Mansouri",
     number: 6,
     age: 28,
@@ -60,7 +60,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "6",
+    id: 6,
     name: "Anas Berrada",
     number: 8,
     age: 26,
@@ -70,7 +70,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "7",
+    id: 7,
     name: "Karim Belkacem",
     number: 10,
     age: 25,
@@ -80,7 +80,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "8",
+    id: 8,
     name: "Ayoub Chraibi",
     number: 7,
     age: 22,
@@ -90,7 +90,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "9",
+    id: 9,
     name: "Zakaria El Amrani",
     number: 9,
     age: 28,
@@ -100,7 +100,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "10",
+    id: 10,
     name: "Bilal Sebti",
     number: 11,
     age: 23,
@@ -110,7 +110,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "11",
+    id: 11,
     name: "Nabil Kettani",
     number: 12,
     age: 35,
@@ -120,7 +120,7 @@ export const team = [
     right_now: "",
   },
   {
-    id: "12",
+    id: 12,
     name: "Reda Lahlou",
     number: 14,
     age: 21,

@@ -1,8 +1,17 @@
 import { team } from "./data.js";
-import { players_num, add_players_to_main, toggle_add } from "./joueurs.js";
+import {
+  players_num,
+  add_players_to_main,
+  toggle_add,
+  open_modify,
+  close_modify,
+  open_supprimer,
+  close_supprimer,
+} from "./joueurs.js";
 
 //let team = JSON.parse(localStorage.getItem(data.team)) || [];
 
+const players_container = document.querySelector("#players_container");
 const players_template = document.querySelector("#players_template");
 
 const ajouter_btn = document.querySelector("#ajouter_btn");
@@ -74,7 +83,7 @@ form_ajouter.addEventListener("submit", (event) => {
   }
 });
 
-aside.addEventListener("click", (event) => {
+players_container.addEventListener("click", (event) => {
   if (event.target.closest(".modifier_btn")) {
     player_to = event.target.closest(".player");
     player_id = Number(player_to.dataset.id);
@@ -96,55 +105,55 @@ aside.addEventListener("click", (event) => {
   }
 });
 
-aside.addEventListener("change", (event) => {
-  if (event.target.closest(".posts")) {
-    player_to = event.target.closest(".player");
-    player_id = Number(player_to.dataset.id);
-    player_position = event.target.closest(".posts").value;
-    for (let i = 0; i < team.length; i++) {
-      if (player_id === team[i].id) {
-        clean_field(team[i]);
-        switch (player_position) {
-          case "GB":
-            add_to_field(player_position, gb_num, gb_player, team[i]);
-            break;
-          case "DG":
-            add_to_field(player_position, dg_num, dg_player, team[i]);
-            break;
-          case "DC_1":
-            add_to_field(player_position, dc1_num, dc1_player, team[i]);
-            break;
-          case "DC_2":
-            add_to_field(player_position, dc2_num, dc2_player, team[i]);
-            break;
-          case "DD":
-            add_to_field(player_position, dd_num, dd_player, team[i]);
-            break;
-          case "MG":
-            add_to_field(player_position, mg_num, mg_player, team[i]);
-            break;
-          case "MC_1":
-            add_to_field(player_position, mc1_num, mc1_player, team[i]);
-            break;
-          case "MC_2":
-            add_to_field(player_position, mc2_num, mc2_player, team[i]);
-            break;
-          case "MD":
-            add_to_field(player_position, md_num, md_player, team[i]);
-            break;
-          case "BU_1":
-            add_to_field(player_position, bu1_num, bu1_player, team[i]);
-            break;
-          case "BU_2":
-            add_to_field(player_position, bu2_num, bu2_player, team[i]);
-            break;
-          default:
-            break;
-        }
-      }
-    }
-  }
-});
+// aside.addEventListener("change", (event) => {
+//   if (event.target.closest(".posts")) {
+//     player_to = event.target.closest(".player");
+//     player_id = Number(player_to.dataset.id);
+//     player_position = event.target.closest(".posts").value;
+//     for (let i = 0; i < team.length; i++) {
+//       if (player_id === team[i].id) {
+//         clean_field(team[i]);
+//         switch (player_position) {
+//           case "GB":
+//             add_to_field(player_position, gb_num, gb_player, team[i]);
+//             break;
+//           case "DG":
+//             add_to_field(player_position, dg_num, dg_player, team[i]);
+//             break;
+//           case "DC_1":
+//             add_to_field(player_position, dc1_num, dc1_player, team[i]);
+//             break;
+//           case "DC_2":
+//             add_to_field(player_position, dc2_num, dc2_player, team[i]);
+//             break;
+//           case "DD":
+//             add_to_field(player_position, dd_num, dd_player, team[i]);
+//             break;
+//           case "MG":
+//             add_to_field(player_position, mg_num, mg_player, team[i]);
+//             break;
+//           case "MC_1":
+//             add_to_field(player_position, mc1_num, mc1_player, team[i]);
+//             break;
+//           case "MC_2":
+//             add_to_field(player_position, mc2_num, mc2_player, team[i]);
+//             break;
+//           case "MD":
+//             add_to_field(player_position, md_num, md_player, team[i]);
+//             break;
+//           case "BU_1":
+//             add_to_field(player_position, bu1_num, bu1_player, team[i]);
+//             break;
+//           case "BU_2":
+//             add_to_field(player_position, bu2_num, bu2_player, team[i]);
+//             break;
+//           default:
+//             break;
+//         }
+//       }
+//     }
+//   }
+// });
 
 form_modifier.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -166,14 +175,16 @@ form_modifier.addEventListener("submit", (event) => {
         team[i].name = data.name;
         team[i].position = data.position;
         team[i].number = Number(data.number);
-        localStorage.setItem("team", JSON.stringify(team));
+        //localStorage.setItem("team", JSON.stringify(team));
         if (team[i].right_now != "") {
           clean_field(team[i]);
         }
         break;
       }
     }
-    aside.querySelectorAll(".player").forEach((player) => player.remove());
+    players_container
+      .querySelectorAll(".player")
+      .forEach((player) => player.remove());
     team.forEach((player) => {
       add_to_aside(player);
     });
@@ -191,11 +202,11 @@ form_supprimer.addEventListener("submit", (event) => {
   for (let i = 0; i < team.length; i++) {
     if (team[i].id === player_id) {
       team.splice(i, 1);
-      localStorage.setItem("team", JSON.stringify(team));
+      //localStorage.setItem("team", JSON.stringify(team));
       break;
     }
   }
-  players_num();
+  players_num(team);
   player_to.remove();
   player_id = 0;
   close_supprimer();
