@@ -1,6 +1,25 @@
 const modifier = document.querySelector("#modifier");
 const supprimer = document.querySelector("#supprimer");
 
+export function statistics(team) {
+  let en_forme = 0;
+  let en_blesse = 0;
+  let age_moyen = 0;
+  let age_sum = 0;
+  for (const player of team) {
+    if (player.statut === "En forme") {
+      en_forme++;
+    } else if (player.statut === "En blesse") {
+      en_blesse++;
+    }
+    age_sum += player.age;
+  }
+  age_moyen = (age_sum / team.length).toFixed(2);
+  document.querySelector("#players_en_forme").textContent = en_forme;
+  document.querySelector("#players_en_blesse").textContent = en_blesse;
+  document.querySelector("#moyen_age").textContent = age_moyen;
+}
+
 export function players_num(team) {
   document.querySelector("#players_num").textContent = team.length;
 }

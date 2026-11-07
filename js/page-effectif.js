@@ -1,5 +1,6 @@
 import { team } from "./data.js";
 import {
+  statistics,
   players_num,
   add_players_to_main,
   toggle_add,
@@ -45,6 +46,7 @@ if (team.length >= 1) {
   id = 0;
 }
 
+statistics(team);
 players_num(team);
 
 // team.forEach((player) => {
@@ -140,6 +142,7 @@ form_ajouter.addEventListener("submit", (event) => {
     };
     team.push(new_player);
     //localStorage.setItem("team", JSON.stringify(team));
+    statistics(team);
     players_num(team);
     afficher_avec_filter(team, etat);
     toggle_add();
@@ -223,6 +226,7 @@ form_modifier.addEventListener("submit", (event) => {
     //   .querySelectorAll(".player")
     //   .forEach((player) => player.remove());
     // team.forEach((player) => add_players_to_main(player));
+    statistics(team);
     afficher_avec_filter(team, etat);
     player_id = 0;
     close_modify();
@@ -242,8 +246,10 @@ form_supprimer.addEventListener("submit", (event) => {
       break;
     }
   }
+  statistics(team);
   players_num(team);
   player_to.remove();
+  afficher_avec_filter(team, etat);
   player_id = 0;
   close_supprimer();
 });
