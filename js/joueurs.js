@@ -1,3 +1,6 @@
+const modifier = document.querySelector("#modifier");
+const supprimer = document.querySelector("#supprimer");
+
 export function players_num(team) {
   document.querySelector("#players_num").textContent = team.length;
 }
@@ -73,4 +76,44 @@ export function open_supprimer() {
 
 export function close_supprimer() {
   supprimer.classList.add("hidden");
+}
+
+function filter_players(team, etat) {
+  return team.filter((player) => {
+    return (
+      player.name.toLowerCase().includes(etat.players_search.toLowerCase()) &&
+      (etat.positions === "Tous" || etat.positions === player.position)
+    );
+  });
+}
+
+export function afficher_avec_filter(team, etat) {
+  const filtred = filter_players(team, etat);
+  const per_page = 8;
+  const totalPages = Math.max(1, Math.ceil(filtred.length / per_page));
+  const start = (etat.page - 1) * per_page;
+  const players_to_show = filtred.slice(start, start + per_page);
+
+  document
+    .querySelector("#players_container")
+    .querySelectorAll(".player")
+    .forEach((player) => player.remove());
+  players_to_show.forEach((player) => add_players_to_main(player));
+
+  document
+    .querySelector("#empty_msg")
+    .classList.toggle("hidden", players_to_show.length > 0);
+
+  if (start + per_page >= filtred.length || filtred.length <= 8) {
+    document.querySelector("#pagination_container > p").innerText =
+      `Affichage de ${filtred.length} sur ${filtred.length}`;
+  } else {
+    document.querySelector("#pagination_container > p").innerText =
+      `Affichage de ${start + per_page} sur ${filtred.length}`;
+  }
+
+  document.querySelector("#info_page").innerText =
+    `Page ${etat.page}/${totalPages}`;
+  document.querySelector("#prec").disabled = etat.page <= 1;
+  document.querySelector("#suiv").disabled = etat.page >= totalPages;
 }

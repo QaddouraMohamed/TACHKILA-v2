@@ -7,6 +7,7 @@ import {
   close_modify,
   open_supprimer,
   close_supprimer,
+  afficher_avec_filter,
 } from "./joueurs.js";
 
 //let team = JSON.parse(localStorage.getItem(data.team)) || [];
@@ -19,11 +20,9 @@ const ajouter_btn = document.querySelector("#ajouter_btn");
 const quit_add = document.querySelectorAll(".quit_add");
 const form_ajouter = document.querySelector("#form_ajouter");
 
-const modifier = document.querySelector("#modifier");
 const quit_modify = document.querySelectorAll(".quit_modify");
 const form_modifier = document.querySelector("#form_modifier");
 
-const supprimer = document.querySelector("#supprimer");
 const quit_supprimer = document.querySelectorAll(".quit_supprimer");
 const form_supprimer = document.querySelector("#form_supprimer");
 
@@ -51,11 +50,12 @@ players_num(team);
 // team.forEach((player) => {
 //   add_players_to_main(player);
 // });
-afficher_avec_filter();
+afficher_avec_filter(team, etat);
 
 players_search.addEventListener("input", (event) => {
   etat.players_search = event.target.value;
-  afficher_avec_filter();
+  etat.page = 1;
+  afficher_avec_filter(team, etat);
 });
 
 all_players.addEventListener("click", () => {
@@ -65,7 +65,8 @@ all_players.addEventListener("click", () => {
   def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
-  afficher_avec_filter();
+  etat.page = 1;
+  afficher_avec_filter(team, etat);
 });
 
 gb_players.addEventListener("click", () => {
@@ -75,7 +76,8 @@ gb_players.addEventListener("click", () => {
   def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
-  afficher_avec_filter();
+  etat.page = 1;
+  afficher_avec_filter(team, etat);
 });
 
 def_players.addEventListener("click", () => {
@@ -85,7 +87,8 @@ def_players.addEventListener("click", () => {
   def_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
   mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
-  afficher_avec_filter();
+  etat.page = 1;
+  afficher_avec_filter(team, etat);
 });
 
 mil_players.addEventListener("click", () => {
@@ -95,7 +98,8 @@ mil_players.addEventListener("click", () => {
   def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   mil_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
   att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
-  afficher_avec_filter();
+  etat.page = 1;
+  afficher_avec_filter(team, etat);
 });
 
 att_players.addEventListener("click", () => {
@@ -105,7 +109,8 @@ att_players.addEventListener("click", () => {
   def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
   att_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
-  afficher_avec_filter();
+  etat.page = 1;
+  afficher_avec_filter(team, etat);
 });
 
 form_ajouter.addEventListener("submit", (event) => {
@@ -133,12 +138,10 @@ form_ajouter.addEventListener("submit", (event) => {
       position: data.position,
       right_now: "",
     };
-    console.log(new_player);
     team.push(new_player);
-    console.log(team);
     //localStorage.setItem("team", JSON.stringify(team));
     players_num(team);
-    add_players_to_main(new_player);
+    afficher_avec_filter(team, etat);
     toggle_add();
   }
 });
@@ -216,10 +219,11 @@ form_modifier.addEventListener("submit", (event) => {
         break;
       }
     }
-    players_container
-      .querySelectorAll(".player")
-      .forEach((player) => player.remove());
-    team.forEach((player) => add_players_to_main(player));
+    // players_container
+    //   .querySelectorAll(".player")
+    //   .forEach((player) => player.remove());
+    // team.forEach((player) => add_players_to_main(player));
+    afficher_avec_filter(team, etat);
     player_id = 0;
     close_modify();
   }
@@ -248,22 +252,12 @@ quit_supprimer.forEach((btn) => {
   btn.addEventListener("click", close_supprimer);
 });
 
-function filter_players() {
-  return team.filter((player) => {
-    return (
-      player.name.toLowerCase().includes(etat.players_search.toLowerCase()) &&
-      (etat.positions === "Tous" || etat.positions === player.position)
-    );
-  });
-}
+document.querySelector("#prec").addEventListener("click", () => {
+  etat.page--;
+  afficher_avec_filter(team, etat);
+});
 
-function afficher_avec_filter() {
-  const filtred = filter_players();
-  const per_page = 8;
-  const start = (etat.page - 1) * per_page;
-  const players_to_show = filtred.slice(start, start + per_page);
-  players_container
-    .querySelectorAll(".player")
-    .forEach((player) => player.remove());
-  players_to_show.forEach((player) => add_players_to_main(player));
-}
+document.querySelector("#suiv").addEventListener("click", () => {
+  etat.page++;
+  afficher_avec_filter(team, etat);
+});

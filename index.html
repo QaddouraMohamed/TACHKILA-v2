@@ -160,16 +160,25 @@
             </div>
           </article>
         </template>
+        <p id="empty_msg" class="hidden text-gray-400 text-center">
+          Aucun joueur ne correspond.
+        </p>
       </section>
 
-      <div class="flex justify-between text-white">
+      <div id="pagination_container" class="flex justify-between text-white">
         <p class="text-gray-400">Affichage de 8 sur 14 joueurs</p>
-        <span class="flex justify-between">
-          <button class="border border-1 border-white rounded-full p-2">
+        <span id="pagination" class="flex justify-between">
+          <button
+            id="prec"
+            class="border border-1 border-white rounded-full p-2 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
             &lt;
           </button>
-          <p class="m-2">Page 1/1</p>
-          <button class="border border-1 border-white rounded-full p-2">
+          <p id="info_page" class="m-2">Page 1/1</p>
+          <button
+            id="suiv"
+            class="border border-1 border-white rounded-full p-2 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
             &gt;
           </button>
         </span>
