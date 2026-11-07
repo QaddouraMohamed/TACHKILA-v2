@@ -87,6 +87,7 @@
         class="flex justify-between items-center gap-5 bg-slate-700 rounded-lg text-white p-4"
       >
         <input
+          id="players_search"
           type="text"
           placeholder="Rechercher un joueur par nom..."
           class="bg-slate-800 rounded-md p-2 basis-4/5"
@@ -94,11 +95,13 @@
         <span
           class="flex justify-around items-center bg-slate-800 rounded-md p-2 gap-4 basis-1/5"
         >
-          <button class="bg-emerald-800 rounded-md p-2">Tous</button>
-          <button>GB</button>
-          <button>DEF</button>
-          <button>MIL</button>
-          <button>ATT</button>
+          <button id="all_players" class="bg-emerald-800 rounded-md p-2">
+            Tous
+          </button>
+          <button id="gb_players">Gardien</button>
+          <button id="def_players">Defenseur</button>
+          <button id="mil_players">Milieu</button>
+          <button id="att_players">Attaquant</button>
         </span>
       </div>
 
@@ -111,7 +114,7 @@
             class="player flex flex-col p-5 w-[97%] border border-l-5 border-amber-500 rounded-lg player text-white relative"
           >
             <p
-              class="bg-purple-950 rounded-full max-w-fit p-1 absolute -top-2 -right-2 hidden"
+              class="captain_badge bg-purple-950 rounded-full max-w-fit p-1 absolute -top-2 -right-2 hidden"
             >
               C
             </p>
@@ -140,14 +143,14 @@
               <div>
                 <p class="player_age text-gray-400 mb-2 mt-2">Age : 0 ans</p>
                 <p
-                  class="player_statut flex items-center justify-center bg-emerald-800 text-emerald-100 rounded-lg"
+                  class="player_statut flex items-center justify-center text-emerald-100 rounded-lg"
                 >
                   Situation
                 </p>
               </div>
               <div class="flex items-center justify-between">
                 <button
-                  class="flex items-center justify-center bg-purple-950 pr-3 pl-3 pt-1 pb-1 rounded-md w-[30%]"
+                  class="captain_btn flex items-center justify-center bg-purple-950 pr-3 pl-3 pt-1 pb-1 rounded-md w-[30%]"
                 >
                   C
                 </button>

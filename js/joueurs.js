@@ -12,6 +12,18 @@ export function add_players_to_main(player) {
   clone.querySelector(".player_post").textContent = player.position;
   clone.querySelector(".player_age").textContent = `Age : ${player.age} ans`;
   clone.querySelector(".player_statut").textContent = player.statut;
+  if (player.capitaine) {
+    clone.querySelector(".player").classList.add("captain");
+    clone
+      .querySelector(".player")
+      .querySelector(".captain_badge")
+      .classList.remove("hidden");
+  }
+  if (player.statut === "En forme") {
+    clone.querySelector(".player_statut").classList.add("bg-emerald-800");
+  } else {
+    clone.querySelector(".player_statut").classList.add("bg-red-800");
+  }
   //clone.querySelector(".player_capitaine").textContent = player.capitaine;
 
   // const posts = clone.querySelector(".posts");

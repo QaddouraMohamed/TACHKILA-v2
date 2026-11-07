@@ -13,6 +13,7 @@ import {
 
 const players_container = document.querySelector("#players_container");
 const players_template = document.querySelector("#players_template");
+const players = document.querySelectorAll(".player");
 
 const ajouter_btn = document.querySelector("#ajouter_btn");
 const quit_add = document.querySelectorAll(".quit_add");
@@ -25,6 +26,14 @@ const form_modifier = document.querySelector("#form_modifier");
 const supprimer = document.querySelector("#supprimer");
 const quit_supprimer = document.querySelectorAll(".quit_supprimer");
 const form_supprimer = document.querySelector("#form_supprimer");
+
+const etat = { players_search: "", positions: "Tous", page: 1 };
+const players_search = document.querySelector("#players_search");
+const all_players = document.querySelector("#all_players");
+const gb_players = document.querySelector("#gb_players");
+const def_players = document.querySelector("#def_players");
+const mil_players = document.querySelector("#mil_players");
+const att_players = document.querySelector("#att_players");
 
 let player_to;
 let player_id = 0;
@@ -39,8 +48,64 @@ if (team.length >= 1) {
 
 players_num(team);
 
-team.forEach((player) => {
-  add_players_to_main(player);
+// team.forEach((player) => {
+//   add_players_to_main(player);
+// });
+afficher_avec_filter();
+
+players_search.addEventListener("input", (event) => {
+  etat.players_search = event.target.value;
+  afficher_avec_filter();
+});
+
+all_players.addEventListener("click", () => {
+  etat.positions = all_players.innerText;
+  all_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
+  gb_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  afficher_avec_filter();
+});
+
+gb_players.addEventListener("click", () => {
+  etat.positions = gb_players.innerText;
+  all_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  gb_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
+  def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  afficher_avec_filter();
+});
+
+def_players.addEventListener("click", () => {
+  etat.positions = def_players.innerText;
+  all_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  gb_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  def_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
+  mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  afficher_avec_filter();
+});
+
+mil_players.addEventListener("click", () => {
+  etat.positions = mil_players.innerText;
+  all_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  gb_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  mil_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
+  att_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  afficher_avec_filter();
+});
+
+att_players.addEventListener("click", () => {
+  etat.positions = att_players.innerText;
+  all_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  gb_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  def_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  mil_players.classList.remove("bg-emerald-800", "rounded-md", "p-2");
+  att_players.classList.add("bg-emerald-800", "rounded-md", "p-2");
+  afficher_avec_filter();
 });
 
 form_ajouter.addEventListener("submit", (event) => {
@@ -83,8 +148,23 @@ quit_add.forEach((btn) => {
   btn.addEventListener("click", toggle_add);
 });
 
-
 players_container.addEventListener("click", (event) => {
+  if (event.target.closest(".captain_btn")) {
+    player_to = event.target.closest(".player");
+    player_id = Number(player_to.dataset.id);
+    team.forEach((player) => {
+      player.capitaine = player.id === player_id;
+    });
+
+    players_container.querySelectorAll(".player").forEach((player) => {
+      const is_captain = Number(player.dataset.id) === player_id;
+      player.classList.toggle("captain", is_captain);
+      player
+        .querySelector(".captain_badge")
+        .classList.toggle("hidden", !is_captain);
+    });
+  }
+
   if (event.target.closest(".modifier_btn")) {
     player_to = event.target.closest(".player");
     player_id = Number(player_to.dataset.id);
@@ -167,3 +247,23 @@ form_supprimer.addEventListener("submit", (event) => {
 quit_supprimer.forEach((btn) => {
   btn.addEventListener("click", close_supprimer);
 });
+
+function filter_players() {
+  return team.filter((player) => {
+    return (
+      player.name.toLowerCase().includes(etat.players_search.toLowerCase()) &&
+      (etat.positions === "Tous" || etat.positions === player.position)
+    );
+  });
+}
+
+function afficher_avec_filter() {
+  const filtred = filter_players();
+  const per_page = 8;
+  const start = (etat.page - 1) * per_page;
+  const players_to_show = filtred.slice(start, start + per_page);
+  players_container
+    .querySelectorAll(".player")
+    .forEach((player) => player.remove());
+  players_to_show.forEach((player) => add_players_to_main(player));
+}

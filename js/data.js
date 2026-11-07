@@ -124,7 +124,7 @@ export const team = [
     name: "Reda Lahlou",
     number: 14,
     age: 21,
-    statut: "Blessé",
+    statut: "En blesse",
     capitaine: false,
     position: "Milieu",
     right_now: "",
