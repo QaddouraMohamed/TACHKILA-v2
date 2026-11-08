@@ -1,6 +1,9 @@
+import { team } from "./data.js";
+import { add_to_aside, clean_field, add_to_field } from "./field.js";
+
 const aside = document.querySelector("aside");
 
-//field consts -_-
+//field consts (-_-)
 const gb_num = document.querySelector("#gb_num");
 const gb_player = document.querySelector("#gb_player");
 const dg_num = document.querySelector("#dg_num");
@@ -24,7 +27,13 @@ const bu1_player = document.querySelector("#bu1_player");
 const bu2_num = document.querySelector("#bu2_num");
 const bu2_player = document.querySelector("#bu2_player");
 
+let player_to;
+let player_id = 0;
+let player_position;
+
+document.querySelector("#players_num").value = `${team.length} joueur(s)`;
 for (let player of team) {
+  add_to_aside(player);
   if (player.right_now != "") {
     switch (player.right_now) {
       case "GB":
@@ -98,36 +107,80 @@ aside.addEventListener("change", (event) => {
         switch (player_position) {
           case "GB":
             add_to_field(player_position, gb_num, gb_player, team[i]);
+            document.querySelectorAll(".gb").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "GB-Gardien (Occupee)";
+            });
             break;
           case "DG":
             add_to_field(player_position, dg_num, dg_player, team[i]);
+            document.querySelectorAll(".dg").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "DG-Defenseur gauche (Occupee)";
+            });
             break;
           case "DC_1":
             add_to_field(player_position, dc1_num, dc1_player, team[i]);
+            document.querySelectorAll(".dc_1").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "DC - Défenseur central 1 (Occupee)";
+            });
             break;
           case "DC_2":
             add_to_field(player_position, dc2_num, dc2_player, team[i]);
+            document.querySelectorAll(".dc_2").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "DC - Défenseur central 2 (Occupee)";
+            });
             break;
           case "DD":
             add_to_field(player_position, dd_num, dd_player, team[i]);
+            document.querySelectorAll(".dd").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "DD - Défenseur droit (Occupee)";
+            });
             break;
           case "MG":
             add_to_field(player_position, mg_num, mg_player, team[i]);
+            document.querySelectorAll(".mg").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "MG - Milieu gauche (Occupee)";
+            });
             break;
           case "MC_1":
             add_to_field(player_position, mc1_num, mc1_player, team[i]);
+            document.querySelectorAll(".mc_1").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "MC - Milieu central 1 (Occupee)";
+            });
             break;
           case "MC_2":
             add_to_field(player_position, mc2_num, mc2_player, team[i]);
+            document.querySelectorAll(".mc_2").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "MC - Milieu central 2 (Occupee)";
+            });
             break;
           case "MD":
             add_to_field(player_position, md_num, md_player, team[i]);
+            document.querySelectorAll(".md").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "MD - Milieu droit (Occupee)";
+            });
             break;
           case "BU_1":
             add_to_field(player_position, bu1_num, bu1_player, team[i]);
+            document.querySelectorAll(".bu_1").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "BU - Buteur 1 (Occupee)";
+            });
             break;
           case "BU_2":
             add_to_field(player_position, bu2_num, bu2_player, team[i]);
+            document.querySelectorAll(".bu_2").forEach((opt) => {
+              opt.setAttribute("disabled", "");
+              opt.textContent = "BU - Buteur 2 (Occupee)";
+            });
             break;
           default:
             break;

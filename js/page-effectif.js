@@ -37,7 +37,6 @@ const att_players = document.querySelector("#att_players");
 
 let player_to;
 let player_id = 0;
-let player_position;
 let id = 0;
 
 if (team.length >= 1) {
